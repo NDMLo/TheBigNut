@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Study Spot Finder 📚</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f7;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 16px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Find an Empty Study Room! 📚</h1>
+  <button onclick="checkRooms()">Check Available Rooms</button>
+  <div id="result"></div>
+
+  <script>
+    const rooms = {
+      "Room 101": { start_time: 8, end_time: 17 },
+      "Room 102": { start_time: 12, end_time: 22 },
+      "Room 103": { start_time: 0, end_time: 24 },
+      "Room 201": { start_time: 18, end_time: 22 },
+      "Room 202": { start_time: 9, end_time: 12 }
+    };
+
+    function checkRooms() {
+      const now = new Date();
+      const currentHour = now.getHours();
+
+      let availableRooms = [];
+      for (let room in rooms) {
+        const { start_time, end_time } = rooms[room];
+        if (start_time <= currentHour && currentHour < end_time) {
+          availableRooms.push(room);
+        }
+      }
+
+      const resultDiv = document.getElementById("result");
+      if (availableRooms.length > 0) {
+        resultDiv.textContent = "Available rooms right now:\n" + availableRooms.join("\n");
+      } else {
+        resultDiv.textContent = "No rooms available right now. 😔";
+      }
+    }
+  </script>
+
+</body>
+</html>
